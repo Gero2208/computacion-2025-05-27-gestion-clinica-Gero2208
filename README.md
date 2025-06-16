@@ -3,9 +3,9 @@
 ## 👤 Información del Alumno
 
 ### 📋 Datos Personales
-- **Nombre y Apellido**: [Completar con nombre y apellido]
+- **Nombre y Apellido**: Geronimo Ortiz
 - **Ciclo Lectivo**: 2025
-- **Carrera**: [Completar con nombre de la carrera]
+- **Carrera**: Ingeniería en informática
 
 ## ⏰ Información Importante sobre la Entrega
 
