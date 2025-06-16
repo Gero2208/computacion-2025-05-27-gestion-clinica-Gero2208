@@ -3,8 +3,16 @@ from ..excepciones import DatosInvalidosException
 from .paciente import Paciente
 from .medico import Medico
 
+
 class Receta:
-    def __init__(self, paciente: Paciente, medico: Medico, fecha: str, medicamentos: list[str], indicaciones: str):
+    def __init__(
+        self,
+        paciente: Paciente,
+        medico: Medico,
+        fecha: str,
+        medicamentos: list[str],
+        indicaciones: str,
+    ):
 
         if not isinstance(paciente, Paciente):
             raise DatosInvalidosException("Se requiere un objeto Paciente válido")
@@ -15,17 +23,23 @@ class Receta:
         if not isinstance(medicamentos, list) or not medicamentos:
             raise DatosInvalidosException("Debe proporcionar al menos un medicamento")
         if not indicaciones or not isinstance(indicaciones, str):
-            raise DatosInvalidosException("Las indicaciones son requeridas y deben ser texto")
-        
+            raise DatosInvalidosException(
+                "Las indicaciones son requeridas y deben ser texto"
+            )
+
         try:
             datetime.strptime(fecha, "%d/%m/%Y")
         except ValueError:
-            raise DatosInvalidosException(f"Formato de fecha inválido: {fecha}. Use dd/mm/aaaa")
-        
+            raise DatosInvalidosException(
+                f"Formato de fecha inválido: {fecha}. Use dd/mm/aaaa"
+            )
+
         for medicamento in medicamentos:
             if not medicamento or not isinstance(medicamento, str):
-                raise DatosInvalidosException("Todos los medicamentos deben ser texto válido")
-        
+                raise DatosInvalidosException(
+                    "Todos los medicamentos deben ser texto válido"
+                )
+
         self.__paciente__ = paciente
         self.__medico__ = medico
         self.__fecha__ = fecha
@@ -49,7 +63,9 @@ class Receta:
 
     def __str__(self) -> str:
         medicamentos_str = ", ".join(self.__medicamentos__)
-        return (f"Receta: {self.__fecha__} - "
-                f"Paciente: {self.__paciente__.obtener_nombre()} (DNI: {self.__paciente__.obtener_dni()}) - "
-                f"Médico: {self.__medico__.obtener_nombre()} - "
-                f"Medicamentos: {medicamentos_str}")
+        return (
+            f"Receta: {self.__fecha__} - "
+            f"Paciente: {self.__paciente__.obtener_nombre()} (DNI: {self.__paciente__.obtener_dni()}) - "
+            f"Médico: {self.__medico__.obtener_nombre()} - "
+            f"Medicamentos: {medicamentos_str}"
+        )

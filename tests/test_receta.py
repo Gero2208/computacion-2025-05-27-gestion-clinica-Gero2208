@@ -4,105 +4,182 @@ from src.modelo.medico import Medico
 from src.modelo.receta import Receta
 from src.excepciones import DatosInvalidosException
 
+
 class TestReceta(unittest.TestCase):
-    
+
     def setUp(self):
         self.paciente = Paciente("Juan Perez", "12345678", "01/01/1990")
         self.medico = Medico("Dr. Ana García", "M12345")
         self.medicamentos = ["Paracetamol 500mg", "Ibuprofeno 400mg"]
         self.indicaciones = "Tomar 1 comprimido cada 8 horas"
-    
+
     def test_crear_receta_valida(self):
-        receta = Receta(self.paciente, self.medico, "15/06/2025", 
-                       self.medicamentos, self.indicaciones)
-        
+        receta = Receta(
+            self.paciente,
+            self.medico,
+            "15/06/2025",
+            self.medicamentos,
+            self.indicaciones,
+        )
+
         self.assertEqual(receta.obtener_paciente().obtener_dni(), "12345678")
         self.assertEqual(receta.obtener_medico().obtener_matricula(), "M12345")
         self.assertEqual(receta.obtener_fecha(), "15/06/2025")
         self.assertEqual(receta.obtener_medicamentos(), self.medicamentos)
         self.assertEqual(receta.obtener_indicaciones(), self.indicaciones)
-    
+
     def test_crear_receta_sin_paciente(self):
         with self.assertRaises(DatosInvalidosException):
-            Receta(None, self.medico, "15/06/2025", self.medicamentos, self.indicaciones)
-        
+            Receta(
+                None, self.medico, "15/06/2025", self.medicamentos, self.indicaciones
+            )
+
         with self.assertRaises(DatosInvalidosException):
-            Receta("No es paciente", self.medico, "15/06/2025", self.medicamentos, self.indicaciones)
-    
+            Receta(
+                "No es paciente",
+                self.medico,
+                "15/06/2025",
+                self.medicamentos,
+                self.indicaciones,
+            )
+
     def test_crear_receta_sin_medico(self):
         with self.assertRaises(DatosInvalidosException):
-            Receta(self.paciente, None, "15/06/2025", self.medicamentos, self.indicaciones)
-        
+            Receta(
+                self.paciente, None, "15/06/2025", self.medicamentos, self.indicaciones
+            )
+
         with self.assertRaises(DatosInvalidosException):
-            Receta(self.paciente, "No es médico", "15/06/2025", self.medicamentos, self.indicaciones)
-    
+            Receta(
+                self.paciente,
+                "No es médico",
+                "15/06/2025",
+                self.medicamentos,
+                self.indicaciones,
+            )
+
     def test_crear_receta_fecha_invalida(self):
         with self.assertRaises(DatosInvalidosException):
             Receta(self.paciente, self.medico, "", self.medicamentos, self.indicaciones)
-        
+
         with self.assertRaises(DatosInvalidosException):
-            Receta(self.paciente, self.medico, "2025-06-15", self.medicamentos, self.indicaciones)
-        
+            Receta(
+                self.paciente,
+                self.medico,
+                "2025-06-15",
+                self.medicamentos,
+                self.indicaciones,
+            )
+
         with self.assertRaises(DatosInvalidosException):
-            Receta(self.paciente, self.medico, "32/06/2025", self.medicamentos, self.indicaciones)
-    
+            Receta(
+                self.paciente,
+                self.medico,
+                "32/06/2025",
+                self.medicamentos,
+                self.indicaciones,
+            )
+
     def test_crear_receta_sin_medicamentos(self):
         with self.assertRaises(DatosInvalidosException):
             Receta(self.paciente, self.medico, "15/06/2025", [], self.indicaciones)
-        
+
         with self.assertRaises(DatosInvalidosException):
             Receta(self.paciente, self.medico, "15/06/2025", None, self.indicaciones)
-    
+
     def test_crear_receta_medicamentos_invalidos(self):
         with self.assertRaises(DatosInvalidosException):
-            Receta(self.paciente, self.medico, "15/06/2025", "Paracetamol", self.indicaciones)
-        
+            Receta(
+                self.paciente,
+                self.medico,
+                "15/06/2025",
+                "Paracetamol",
+                self.indicaciones,
+            )
+
         with self.assertRaises(DatosInvalidosException):
-            Receta(self.paciente, self.medico, "15/06/2025", ["", "Ibuprofeno"], self.indicaciones)
-        
+            Receta(
+                self.paciente,
+                self.medico,
+                "15/06/2025",
+                ["", "Ibuprofeno"],
+                self.indicaciones,
+            )
+
         with self.assertRaises(DatosInvalidosException):
-            Receta(self.paciente, self.medico, "15/06/2025", [None, "Ibuprofeno"], self.indicaciones)
-    
+            Receta(
+                self.paciente,
+                self.medico,
+                "15/06/2025",
+                [None, "Ibuprofeno"],
+                self.indicaciones,
+            )
+
     def test_crear_receta_sin_indicaciones(self):
         with self.assertRaises(DatosInvalidosException):
             Receta(self.paciente, self.medico, "15/06/2025", self.medicamentos, "")
-        
+
         with self.assertRaises(DatosInvalidosException):
             Receta(self.paciente, self.medico, "15/06/2025", self.medicamentos, None)
-    
+
     def test_obtener_medicamentos_copia(self):
-        receta = Receta(self.paciente, self.medico, "15/06/2025", 
-                       self.medicamentos, self.indicaciones)
-        
+        receta = Receta(
+            self.paciente,
+            self.medico,
+            "15/06/2025",
+            self.medicamentos,
+            self.indicaciones,
+        )
+
         medicamentos_obtenidos = receta.obtener_medicamentos()
         medicamentos_obtenidos.append("Aspirina")
-        
+
         self.assertEqual(len(receta.obtener_medicamentos()), 2)
         self.assertNotIn("Aspirina", receta.obtener_medicamentos())
-    
+
     def test_receta_con_un_medicamento(self):
-        receta = Receta(self.paciente, self.medico, "15/06/2025", 
-                       ["Paracetamol 500mg"], self.indicaciones)
-        
+        receta = Receta(
+            self.paciente,
+            self.medico,
+            "15/06/2025",
+            ["Paracetamol 500mg"],
+            self.indicaciones,
+        )
+
         medicamentos = receta.obtener_medicamentos()
         self.assertEqual(len(medicamentos), 1)
         self.assertEqual(medicamentos[0], "Paracetamol 500mg")
-    
+
     def test_receta_con_multiples_medicamentos(self):
-        medicamentos_multiples = ["Paracetamol 500mg", "Ibuprofeno 400mg", "Vitamina C", "Omega 3"]
-        receta = Receta(self.paciente, self.medico, "15/06/2025", 
-                       medicamentos_multiples, self.indicaciones)
-        
+        medicamentos_multiples = [
+            "Paracetamol 500mg",
+            "Ibuprofeno 400mg",
+            "Vitamina C",
+            "Omega 3",
+        ]
+        receta = Receta(
+            self.paciente,
+            self.medico,
+            "15/06/2025",
+            medicamentos_multiples,
+            self.indicaciones,
+        )
+
         medicamentos = receta.obtener_medicamentos()
         self.assertEqual(len(medicamentos), 4)
         self.assertIn("Vitamina C", medicamentos)
         self.assertIn("Omega 3", medicamentos)
-    
+
     def test_representacion_receta(self):
-        receta = Receta(self.paciente, self.medico, "15/06/2025", 
-                       self.medicamentos, self.indicaciones)
+        receta = Receta(
+            self.paciente,
+            self.medico,
+            "15/06/2025",
+            self.medicamentos,
+            self.indicaciones,
+        )
         representacion = str(receta)
-        
+
         self.assertIn("15/06/2025", representacion)
         self.assertIn("Juan Perez", representacion)
         self.assertIn("12345678", representacion)
@@ -110,5 +187,6 @@ class TestReceta(unittest.TestCase):
         self.assertIn("Paracetamol 500mg", representacion)
         self.assertIn("Ibuprofeno 400mg", representacion)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

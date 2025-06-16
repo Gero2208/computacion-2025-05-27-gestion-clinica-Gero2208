@@ -7,11 +7,11 @@ from .historia_clinica import HistoriaClinica
 from .clinica import Clinica
 
 __all__ = [
-    'Paciente',
-    'Especialidad', 
-    'Medico',
-    'Turno',
-    'Receta',
-    'HistoriaClinica',
-    'Clinica'
+    "Paciente",
+    "Especialidad",
+    "Medico",
+    "Turno",
+    "Receta",
+    "HistoriaClinica",
+    "Clinica",
 ]

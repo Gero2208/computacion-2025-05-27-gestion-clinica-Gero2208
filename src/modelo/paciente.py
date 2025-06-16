@@ -1,6 +1,7 @@
 from datetime import datetime
 from ..excepciones import DatosInvalidosException
 
+
 class Paciente:
 
     def __init__(self, nombre: str, dni: str, fecha_nacimiento: str):
@@ -10,13 +11,17 @@ class Paciente:
         if not dni or not isinstance(dni, str):
             raise DatosInvalidosException("El DNI es requerido y debe ser texto")
         if not fecha_nacimiento or not isinstance(fecha_nacimiento, str):
-            raise DatosInvalidosException("La fecha de nacimiento es requerida y debe ser texto")
-        
+            raise DatosInvalidosException(
+                "La fecha de nacimiento es requerida y debe ser texto"
+            )
+
         try:
             datetime.strptime(fecha_nacimiento, "%d/%m/%Y")
         except ValueError:
-            raise DatosInvalidosException(f"Formato de fecha inválido: {fecha_nacimiento}. Use dd/mm/aaaa")
-        
+            raise DatosInvalidosException(
+                f"Formato de fecha inválido: {fecha_nacimiento}. Use dd/mm/aaaa"
+            )
+
         self.__nombre__ = nombre
         self.__dni__ = dni
         self.__fecha_nacimiento__ = fecha_nacimiento
