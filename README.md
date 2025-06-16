@@ -27,25 +27,37 @@ python -m unittest tests.test_(nombre del archivo)
 El sistema está organizado en capas, separando claramente las responsabilidades de cada módulo:
 
 ● **Modelos (src/modelo/):** Incluye todas las clases principales del dominio y validaciones.
+
 ● **Interfaz por consola (src/cli/cli.py):** Maneja la interacción con el usuario a través de un menú en la terminal.
+
 ● **Excepciones (src/excepciones.py):** Maneja todas las excepciones.
+
 ● **Pruebas (tests/):** Contiene los tests unitarios para cada clase.
 
 ### **Características técnicas**
 
 ● **Validaciones centralizadas:** Todas las validaciones de datos y reglas de negocio se realizan en las clases del modelo y no en el CLI.
+
 ● **Excepciones personalizadas:** El sistema utiliza excepciones personalizadas para los distintos tipos de errores.
+
 ● **Búsquedas:** Se utilizan diccionarios para almacenar y buscar pacientes (por DNI) y médicos (por matrícula).
+
 ● **Copias de listas:** Los métodos que devuelven listas retornan copias para evitar modificaciones accidentales de los datos.
+
 ● **Historia clínica automática:** Al registrar un paciente se crea automáticamente su historia clínica, donde se almacenan todos sus turnos y recetas.
+
 ● **Atributos privados:** Todos los atributos de instancia en las clases del modelo usan doble guion bajo al principio y al final para reforzar el encapsulamiento.
 
 ### **Flujo de operaciones**
 
 1- El usuario interactúa con el menú de la CLI.
+
 2- La CLI solicita los datos necesarios y crea los objetos del modelo, que validan automáticamente la información.
+
 3- La clase Clinica coordina todas las operaciones.
+
 4- Los errores y validaciones se manejan mediante excepciones personalizadas, que la CLI captura y muestra como mensajes al usuario.
+
 5- El usuario puede realizar múltiples operaciones hasta decidir salir del sistema.
 
 ## ⏰ Información Importante sobre la Entrega
