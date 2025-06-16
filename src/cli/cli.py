@@ -35,7 +35,6 @@ class CLI:
                 if opcion in self.opciones:
                     resultado = self.opciones[opcion][1]()
                     if resultado == "salir":
-                        print("\n¡Gracias por usar el sistema! ¡Hasta luego!")
                         break
                 else:
                     print("\nOpción inválida. Intente nuevamente.")
