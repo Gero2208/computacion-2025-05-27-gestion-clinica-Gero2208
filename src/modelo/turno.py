@@ -4,7 +4,6 @@ from .paciente import Paciente
 from .medico import Medico
 
 class Turno:
-
     def __init__(self, paciente: Paciente, medico: Medico, fecha: str, hora: str, especialidad: str):
 
         if not isinstance(paciente, Paciente):
@@ -35,37 +34,39 @@ class Turno:
         except ValueError:
             raise DatosInvalidosException(f"Formato de hora inválido: {hora}. Use HH:MM")
         
-        self.__paciente = paciente
-        self.__medico = medico
-        self.__fecha = fecha
-        self.__hora = hora
-        self.__especialidad = especialidad
-        self.__estado = "Programado" 
+        self.__paciente__ = paciente
+        self.__medico__ = medico
+        self.__fecha__ = fecha
+        self.__hora__ = hora
+        self.__especialidad__ = especialidad
+        self.__estado__ = "Programado" 
     
     def obtener_paciente(self) -> Paciente:
-        return self.__paciente
+        return self.__paciente__
     
     def obtener_medico(self) -> Medico:
-        return self.__medico
+        return self.__medico__
     
     def obtener_fecha(self) -> str:
-        return self.__fecha
+        return self.__fecha__
     
     def obtener_hora(self) -> str:
-        return self.__hora
+        return self.__hora__
     
     def obtener_especialidad(self) -> str:
-        return self.__especialidad
-    
-    def marcar_completado(self):
-        self.__estado = "Completado"
-    
-    def marcar_cancelado(self):
-        self.__estado = "Cancelado"
+        return self.__especialidad__
     
     def obtener_estado(self) -> str:
-        return self.__estado
+        return self.__estado__
+    
+    def marcar_completado(self):
+        self.__estado__ = "Completado"
+    
+    def marcar_cancelado(self):
+        self.__estado__ = "Cancelado"
     
     def __str__(self) -> str:
-        return f"Turno: {self.__fecha} {self.__hora} - Paciente: {self.__paciente.obtener_nombre()} (DNI: {self.__paciente.obtener_dni()}) - " \
-               f"Dr/a. {self.__medico.obtener_nombre()} - {self.__especialidad} - Estado: {self.__estado}"
+        return (f"Turno: {self.__fecha__} a las {self.__hora__} - "
+                f"Paciente: {self.__paciente__.obtener_nombre()} (DNI: {self.__paciente__.obtener_dni()}) - "
+                f"Médico: {self.__medico__.obtener_nombre()} - "
+                f"Especialidad: {self.__especialidad__} - Estado: {self.__estado__}")

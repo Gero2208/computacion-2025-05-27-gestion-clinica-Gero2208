@@ -12,10 +12,10 @@ from .historia_clinica import HistoriaClinica
 class Clinica:
 
     def __init__(self):
-        self.__pacientes = {}
-        self.__medicos = {}
-        self.__turnos = []
-        self.__historias_clinicas = {}
+        self.__pacientes__ = {}
+        self.__medicos__ = {}
+        self.__turnos__ = []
+        self.__historias_clinicas__ = {}
     
     def registrar_paciente(self, nombre: str, dni: str, fecha_nacimiento: str) -> Paciente:
 
@@ -23,25 +23,25 @@ class Clinica:
             raise DatosInvalidosException(f"Ya existe un paciente con DNI {dni}")
         
         paciente = Paciente(nombre, dni, fecha_nacimiento)
-        self.__pacientes[dni] = paciente
+        self.__pacientes__[dni] = paciente
         
-        self.__historias_clinicas[dni] = HistoriaClinica(paciente)
+        self.__historias_clinicas__[dni] = HistoriaClinica(paciente)
         
         return paciente
     
     def registrar_medico(self, nombre: str, matricula: str) -> Medico:
 
-        if matricula in self.__medicos:
+        if matricula in self.__medicos__:
             raise DatosInvalidosException(f"Ya existe un médico con matrícula {matricula}")
         
         medico = Medico(nombre, matricula)
-        self.__medicos[matricula] = medico
+        self.__medicos__[matricula] = medico
         
         return medico
     
     def agregar_especialidad_a_medico(self, matricula: str, tipo_especialidad: str, dias: list[str]) -> Especialidad:
 
-        if matricula not in self.__medicos:
+        if matricula not in self.__medicos__:
             raise MedicoNoEncontradoException(f"No existe un médico con matrícula {matricula}")
         
         especialidad = Especialidad(tipo_especialidad, dias)

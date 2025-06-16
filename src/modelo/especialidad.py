@@ -20,12 +20,12 @@ class Especialidad:
                 dia_lower = "sábado"
             dias_normalizados.append(dia_lower)
         
-        self.__tipo = tipo
-        self.__dias = dias_normalizados
-    
+        self.__tipo__ = tipo
+        self.__dias__ = dias_normalizados
+
     def obtener_especialidad(self) -> str:
-        return self.__tipo
-    
+        return self.__tipo__
+
     def verificar_dia(self, dia: str) -> bool:
 
         dia_normalizado = dia.lower()
@@ -33,11 +33,11 @@ class Especialidad:
             dia_normalizado = "miércoles"
         elif dia_normalizado == "sabado":
             dia_normalizado = "sábado"
-        return dia_normalizado in self.__dias
-    
+        return dia_normalizado in self.__dias__
+
     def obtener_dias(self) -> list[str]:
-        return self.__dias.copy()
+        return self.__dias__.copy()
     
     def __str__(self) -> str:
-        dias_str = ", ".join(self.__dias)
-        return f"{self.__tipo} (Días: {dias_str})"
+        dias_str = ", ".join(self.__dias__)
+        return f"{self.__tipo__} (Días: {dias_str})"

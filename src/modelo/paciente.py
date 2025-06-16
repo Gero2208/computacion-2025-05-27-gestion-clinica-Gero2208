@@ -17,18 +17,18 @@ class Paciente:
         except ValueError:
             raise DatosInvalidosException(f"Formato de fecha inválido: {fecha_nacimiento}. Use dd/mm/aaaa")
         
-        self.__nombre = nombre
-        self.__dni = dni
-        self.__fecha_nacimiento = fecha_nacimiento
-    
+        self.__nombre__ = nombre
+        self.__dni__ = dni
+        self.__fecha_nacimiento__ = fecha_nacimiento
+
     def obtener_dni(self) -> str:
-        return self.__dni
-    
+        return self.__dni__
+
     def obtener_nombre(self) -> str:
-        return self.__nombre
-    
+        return self.__nombre__
+
     def obtener_fecha_nacimiento(self) -> str:
-        return self.__fecha_nacimiento
-    
+        return self.__fecha_nacimiento__
+
     def __str__(self) -> str:
-        return f"Paciente: {self.__nombre} (DNI: {self.__dni}, Nacimiento: {self.__fecha_nacimiento})"
+        return f"Paciente: {self.__nombre__} (DNI: {self.__dni__}, Nacimiento: {self.__fecha_nacimiento__})"

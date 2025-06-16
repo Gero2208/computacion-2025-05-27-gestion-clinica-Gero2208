@@ -4,7 +4,6 @@ from .paciente import Paciente
 from .medico import Medico
 
 class Receta:
-
     def __init__(self, paciente: Paciente, medico: Medico, fecha: str, medicamentos: list[str], indicaciones: str):
 
         if not isinstance(paciente, Paciente):
@@ -27,28 +26,30 @@ class Receta:
             if not medicamento or not isinstance(medicamento, str):
                 raise DatosInvalidosException("Todos los medicamentos deben ser texto válido")
         
-        self.__paciente = paciente
-        self.__medico = medico
-        self.__fecha = fecha
-        self.__medicamentos = medicamentos
-        self.__indicaciones = indicaciones
-    
+        self.__paciente__ = paciente
+        self.__medico__ = medico
+        self.__fecha__ = fecha
+        self.__medicamentos__ = medicamentos.copy()
+        self.__indicaciones__ = indicaciones
+
     def obtener_paciente(self) -> Paciente:
-        return self.__paciente
-    
+        return self.__paciente__
+
     def obtener_medico(self) -> Medico:
-        return self.__medico
-    
+        return self.__medico__
+
     def obtener_fecha(self) -> str:
-        return self.__fecha
-    
+        return self.__fecha__
+
     def obtener_medicamentos(self) -> list[str]:
-        return self.__medicamentos.copy()
-    
+        return self.__medicamentos__.copy()
+
     def obtener_indicaciones(self) -> str:
-        return self.__indicaciones
-    
+        return self.__indicaciones__
+
     def __str__(self) -> str:
-        medicamentos_str = ", ".join(self.__medicamentos)
-        return f"Receta ({self.__fecha}) - Paciente: {self.__paciente.obtener_nombre()} (DNI: {self.__paciente.obtener_dni()}) - " \
-               f"Dr/a. {self.__medico.obtener_nombre()} - Medicamentos: {medicamentos_str}"
+        medicamentos_str = ", ".join(self.__medicamentos__)
+        return (f"Receta: {self.__fecha__} - "
+                f"Paciente: {self.__paciente__.obtener_nombre()} (DNI: {self.__paciente__.obtener_dni()}) - "
+                f"Médico: {self.__medico__.obtener_nombre()} - "
+                f"Medicamentos: {medicamentos_str}")
